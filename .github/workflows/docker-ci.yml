@@ -24,7 +24,12 @@ jobs:
       - name: show running container
         run: |
           docker ps    
-           
+     
+      - name: wait for application
+        run: |
+           sleep 10
+          
+
       - name: show the Webpage output
         run: |
           curl http://localhost:5000 
