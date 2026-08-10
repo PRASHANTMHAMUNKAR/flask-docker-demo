@@ -16,7 +16,7 @@ jobs:
 
       - name: build-dokcer image
         run: |
-          docker build -t flask demo .
+          docker build -t flas- demo .
 
       - name: show docker image
         run: |
