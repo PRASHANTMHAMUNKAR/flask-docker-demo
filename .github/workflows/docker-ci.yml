@@ -25,6 +25,8 @@ jobs:
         run: |
           docker ps    
            
-
+      - name: show the Webpage output
+        run: |
+          curl http://localhost:5000 
 
 
