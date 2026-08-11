@@ -37,6 +37,6 @@ jobs:
 
       - name: Checking container logs
         run: |
-          docker logs flas-demo-app    
+          docker logs flask-demo-app    
         
           
