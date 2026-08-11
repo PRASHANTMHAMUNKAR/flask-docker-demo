@@ -1,37 +1,42 @@
-name: flask demo CI
+name: Demo Flask app CI
+
 on:
   push:
     branches:
       - main
 
 jobs:
-  docker-buils:
+  docker-build
     runs-on: ubuntu-latest
-      
-    steps:
 
-      - name: checkout code
+    steps:
+      
+
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: docker build
+      - name: Build Docker Image
         run: |
-          docker build -t flask-demo .
+          docker build -t flask-demo-app .
 
-      - name: Run docker container
+      - name: Show Docker image
         run: |
-          docker run -d -p 5000:5000 --name flask-demo flask-demo
+          docker images
 
-      - name: show running container
+      - name: Run Docker container
         run: |
-          docker ps    
-     
-      - name: wait for application
+          docker run -d -p 5000:5000 -- name flask-demo-app flask-demo-app 
+
+      - name: Waiting to run the app
         run: |
-           sleep 10
+          sleep 10
+         
+      - name: checking the app running
+        run: |
+          curl http://localhost:5000
+
+      - name: Checking container logs
+        run: |
+          docker logs flas-demo-app    
+        
           
-
-      - name: show the Webpage output
-        run: |
-          curl http://localhost:5000 
-
-
