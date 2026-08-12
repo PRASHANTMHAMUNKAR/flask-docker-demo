@@ -38,7 +38,7 @@ jobs:
 
       - name: Load docker image
         run: |
-          docker load -i flask-demo-app
+          docker load -i flask-app-demo:${{ github.sha }}
 
       - name: Run the container
         run: |
