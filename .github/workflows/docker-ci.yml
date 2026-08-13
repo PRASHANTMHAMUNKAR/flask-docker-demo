@@ -38,7 +38,7 @@ jobs:
 
       - name: Load docker image
         run: |
-          docker load -i flask-app-demo.tar
+          docker load -i ./flask-docker-app/flask-app-demo.tar
 
       - name: Run the container
         run: |
