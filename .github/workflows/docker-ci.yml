@@ -104,11 +104,11 @@ jobs:
            
       - name: pull the updated image
         run: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/flask-app-demo:latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/flask-app-demo:${{ github.sha }}
 
       - name: Run the application
         run: |
-          docker run -d -p 5000:5000 --name flask-app-demo --restart unless-stopped ${{ secrets.DOCKER_USERNAME }}/flask-app-demo:latest
+          docker run -d -p 5000:5000 --name flask-app-demo --restart unless-stopped ${{ secrets.DOCKER_USERNAME }}/flask-app-demo:${{ github.sha }}
       
       - name: Waiting for the application to run
         run: |
