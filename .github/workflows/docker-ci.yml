@@ -107,7 +107,7 @@ jobs:
             echo "Loggin into Docekr hub"
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             echo "Pulling Docker Image"
-            docker pull ${{ secrets.DOCKER_USERNAME }}/flash-app-demo:${{ github.sha }}
+            docker pull ${{ secrets.DOCKER_USERNAME }}/flask-app-demo:${{ github.sha }}
 
             echo " Stopping the running container"
             docker stop flask-app-demo || true
