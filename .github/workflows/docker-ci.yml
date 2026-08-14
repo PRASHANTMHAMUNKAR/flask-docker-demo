@@ -88,8 +88,8 @@ jobs:
       - name: Push image
         run: |
           docker push \
-            ${{ secrets.DOCKER_USERNAME }}/flask-app-demo:${{ github.sha }}        
-
+            ${{ secrets.DOCKER_USERNAME }}/flask-app-demo:${{ github.sha }}    
+        
   deploy:
     name: Deploy App to Ec2
     runs-on: ubuntu-latest
@@ -110,6 +110,8 @@ jobs:
             echo "Pulling Docker Image"
             docker pull ${{ secrets.DOCKER_USERNAME }}/flask-app-demo:${{ github.sha }}
 
+            OLD_IMAGE=$(docker inspect flask-app-demo --format --format='{{ config.image }}')   
+
             echo " Stopping the running container"
             docker stop flask-app-demo || true
 
@@ -122,10 +124,34 @@ jobs:
             echo "waiting for the Applicaton to run"
             sleep 10
             
+
+
             echo "Running Application Health check"
             curl http://localhost/health
 
             echo "Application is healthy"
 
+            if curl -f http://localhost/health; then
+
+                echo "Deployment successful"
+
+            else
+
+              echo "Deployment failed"
+              echo "Rolling back..."
+
+              docker stop flask-app-demo || true
+              docker rm flask-app-demo || true
+
+              docker run -d \
+              --name flask-app-demo \
+              --restart unless-stopped \
+              -p 80:5000 \
+              "$OLD_IMAGE"
+
+              echo "Rollback completed"
+
+              exit 1
+            fi
 
       
