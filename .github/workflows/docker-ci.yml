@@ -97,7 +97,7 @@ jobs:
 
     steps:
       - name: Deploy app to Ec2
-        uses: appleboy/ssh-action@v@v1.2.5
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.EC2_HOST}}
           username: ${{ secrets.EC2_USER}}
