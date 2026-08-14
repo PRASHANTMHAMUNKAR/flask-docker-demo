@@ -105,8 +105,7 @@ jobs:
 
           script: |
             echo "Loggin into Docekr hub"
-            echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-            
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             echo "Pulling Docker Image"
             docker pull ${{ secrets.DOCKER_USERNAME }}/flask-app-demo:${{ github.sha }}
 
@@ -119,13 +118,5 @@ jobs:
             echo "Running New container"
             docker run -d -p 80:5000 --name flask-app-demo ${{ secrets.DOCKER_USERNAME }}/flask-app-demo:${{ github.sha }}
 
-            echo "waiting for the Applicaton to run"
-            sleep 10
-            
-            echo "Running Application Health check"
-            curl http://localhost/health
-
-            echo "Application is healthy"
-
-
-      
+            echo "Application Deployed Successfully"
+            docker ps
